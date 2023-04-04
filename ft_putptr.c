@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_putptr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/27 13:56:58 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/04/04 19:16:57 by nihamdan         ###   ########.fr       */
+/*   Created: 2023/04/04 15:54:17 by nihamdan          #+#    #+#             */
+/*   Updated: 2023/04/04 19:22:25 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include <unistd.h>
-# include <stdarg.h>
+#include "ft_printf.h"
 
-int		ft_putchar(char c);
-int		ft_putstr(char *str);
-int		ft_putptr(void *ptr);
-int		ft_putnbr_base(int nbr, char *base);
-int		ft_unsigned_putnbr_base(size_t nbr, char *base);
-char	*ft_strchr(const char *s, int c);
-#endif
+int	ft_putptr(void *ptr)
+{
+	size_t	tmp;
+	int		count;
+
+	tmp = (size_t) ptr;
+	count = 2;
+	write(1, "0x", 2);
+	count += ft_unsigned_putnbr_base(tmp, "0123456789abcdef");
+	return (count);
+}

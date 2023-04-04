@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
+/*   ft_unsigned_putnbr_base.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/03 10:29:06 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/04/04 19:08:08 by nihamdan         ###   ########.fr       */
+/*   Created: 2023/04/04 15:45:38 by nihamdan          #+#    #+#             */
+/*   Updated: 2023/04/04 19:07:03 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_print(unsigned int n, char *base, unsigned int size, int *count)
 	*count += 1;
 }
 
-int	ft_putnbr_base(int nbr, char *base)
+int	ft_unsigned_putnbr_base(size_t nbr, char *base)
 {
 	int	size;
 	int	count;
