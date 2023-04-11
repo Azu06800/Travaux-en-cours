@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/27 13:56:58 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/04/04 19:16:57 by nihamdan         ###   ########.fr       */
+/*   Created: 2023/04/07 11:07:05 by nihamdan          #+#    #+#             */
+/*   Updated: 2023/04/11 15:15:48 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include <unistd.h>
-# include <stdarg.h>
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 100
+# endif
 
-int		ft_putchar(char c);
-int		ft_putstr(char *str);
-int		ft_putptr(void *ptr);
-int		ft_putnbr_base(int nbr, char *base);
-int		ft_unsigned_putnbr_base(size_t nbr, char *base);
-char	*ft_strchr(const char *s, int c);
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <limits.h>
+
+size_t	ft_strlen(const char *s);
+char	*get_next_line(int fd);
+
 #endif
