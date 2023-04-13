@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 11:07:19 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/04/13 14:59:48 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/04/13 19:17:33 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	read_and_stash(int fd, unsigned char *stash)
+int	read_and_stash(int fd, char **stash)
 {
-	unsigned char	*buf;
-	unsigned char	*tmp;
+	char	*buf;
+	char	*tmp;
 	size_t			read_size;
 
 	buf = ft_calloc(BUFFER_SIZE + 1 , sizeof(char));
@@ -23,42 +23,63 @@ int	read_and_stash(int fd, unsigned char *stash)
 	if(read_size < 1)
 	{
 		if (read_size == 0)
-			free(stash[fd]);
+			free(*stash);
 		free(buf);
 		return (read_size);
 	}
-	tmp = ft_strdup(stash[fd]);
-	if (stash[fd])
-		free(stash[fd]);
-	stash[fd]= ft_calloc(ft_strlen(tmp) + ft_strlen(buf) + 1, sizeof(char));
-	stash[fd]= ft_strcat(stash[fd], tmp);
-	stash[fd]= ft_strcat(stash[fd], buf);
+	tmp = ft_strdup(*stash);
+	if (*stash)
+		free(*stash);
+	*stash = ft_calloc(ft_strlen(tmp) + ft_strlen(buf) + 1, sizeof(char));
+	*stash = ft_strcat(*stash, tmp);
+	*stash = ft_strcat(*stash, buf);
 	free(tmp);
+	free(buf);
 	return (read_size);
 }
-unsigned char *extract_line(int fd, unsigned char **stash)
+
+char *copy_and_clean(char *stash, size_t i)
+{
+	char	*line;
+	char	*tmp;
+
+	line = ft_calloc(i + 1, sizeof(char));
+	tmp = ft_strdup(stash + (i + 1));
+	ft_strlcpy(line, stash, i);
+	free(stash);
+	stash = ft_strdup(tmp);
+	free(tmp);
+	return (line);
+}
+
+char *extract_line(int fd, char *stash)
 {
 	size_t				i;
 	size_t				read_size;
-	unsigned char 		*line;
+	char		 		*line;
 
 	i = 0;
-	read_size = read_and_stash(fd, stash[fd]);
-	if(read_size < 1)
+	read_size = -1;
+	read_size += read_and_stash(fd, &stash);
+	if(read_size < 0)
 		return(NULL);
-	while(stash[fd][i] != '\n')
+	while(stash[i] != '\n' && stash[i] != '\0')
 	{
-		i++;
+		if(i == read_size)
+			read_size += read_and_stash(fd, &stash);
+		else if(i < read_size)
+			i++;
 	}
+	line = copy_and_clean(stash, i);
 	return(line);
 }
 
 char	*get_next_line(int fd)
 {
-	static unsigned char 	*stash[OPEN_MAX];
-	unsigned char			*line;
+	static char 	*stash[OPEN_MAX];
+	char			*line;
 
-	if(fd < 0)
+	if(fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
 	line = extract_line(fd, stash[fd]);
 	//1  read and stash
@@ -70,7 +91,17 @@ char	*get_next_line(int fd)
 int main()
 {
 	char *line;
+	int fd;
 
-	line = get_next_line();
+	fd = open("text.txt", O_RDONLY);
+	line = get_next_line(fd);
+	printf("%s", line);
+	line = get_next_line(fd);
+	printf("%s", line);
+	line = get_next_line(fd);
+	printf("%s", line);
+	close(fd);
 	free(line);
+	//system("leaks a.out");
+	return (0);
 }
