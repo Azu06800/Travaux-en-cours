@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 11:07:19 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/04/11 15:15:45 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:59:48 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,16 @@ int	read_and_stash(int fd, unsigned char *stash)
 {
 	unsigned char	*buf;
 	unsigned char	*tmp;
+	size_t			read_size;
 
 	buf = ft_calloc(BUFFER_SIZE + 1 , sizeof(char));
-	if(read(fd, buf, BUFFER_SIZE) < 1)
-	{	
-		if (read (fd, buf, BUFFER_SIZE) == 0)
+	read_size = read(fd, buf, BUFFER_SIZE);
+	if(read_size < 1)
+	{
+		if (read_size == 0)
 			free(stash[fd]);
 		free(buf);
-		return (0);
+		return (read_size);
 	}
 	tmp = ft_strdup(stash[fd]);
 	if (stash[fd])
@@ -32,23 +34,21 @@ int	read_and_stash(int fd, unsigned char *stash)
 	stash[fd]= ft_strcat(stash[fd], tmp);
 	stash[fd]= ft_strcat(stash[fd], buf);
 	free(tmp);
-	return (1);
+	return (read_size);
 }
 unsigned char *extract_line(int fd, unsigned char **stash)
 {
-	int				i;
-	unsigned char 	*line;
+	size_t				i;
+	size_t				read_size;
+	unsigned char 		*line;
 
 	i = 0;
-	if(!read_and_stash(fd, stash[fd]))
+	read_size = read_and_stash(fd, stash[fd]);
+	if(read_size < 1)
 		return(NULL);
 	while(stash[fd][i] != '\n')
 	{
-		if(i <= ft_strlen(stash[fd]))
-		{
-			if (stash[fd][i] == '\0')
-				return (stash[fd]);
-		}
+		i++;
 	}
 	return(line);
 }
@@ -57,7 +57,7 @@ char	*get_next_line(int fd)
 {
 	static unsigned char 	*stash[OPEN_MAX];
 	unsigned char			*line;
-	
+
 	if(fd < 0)
 		return (NULL);
 	line = extract_line(fd, stash[fd]);
