@@ -6,7 +6,7 @@
 /*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 11:07:37 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/04/13 19:16:20 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/04/14 15:22:47 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ size_t	ft_strlcpy(char *dest, char *src, size_t size)
 	res = 0;
 	if (size > 0)
 	{
-		while (size > 1 && src[res])
+		while (size > 0 && src[res]) // modif size > 1 a 0
 		{
 			dest[res] = src[res];
 			res++;
@@ -54,10 +54,11 @@ char	*ft_strdup(char *s)
 	if (!s)
 		return (NULL);
 	dest_len = ft_strlen(s);
+	//printf("dest_len = %d\n", dest_len);//tmp
 	dest = malloc(sizeof(char) * (dest_len + 1));
 	if (!dest)
 		return (NULL);
-	ft_strlcpy(dest, s, dest_len + 1);
+	ft_strlcpy(dest, s, dest_len);
 	return (dest);
 }
 
