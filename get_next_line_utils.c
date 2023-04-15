@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 11:07:37 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/04/14 15:22:47 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/04/15 15:25:12 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*ft_strdup(char *s)
 	dest = malloc(sizeof(char) * (dest_len + 1));
 	if (!dest)
 		return (NULL);
-	ft_strlcpy(dest, s, dest_len);
+	ft_strlcpy(dest, s, dest_len + 1);
 	return (dest);
 }
 
