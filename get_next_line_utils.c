@@ -6,7 +6,7 @@
 /*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 11:07:37 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/04/15 15:25:12 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/04/19 17:52:56 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 size_t	ft_strlen(char *s)
 {
-	int	i;
+	size_t	len;
 
-	i = 0;
-	if(!s)
-		return (0);
-	while (s[i])
-		i++;
-	return (i);
+	len = 0;
+	while (s && *s != 0)
+	{
+		s++;
+		len++;
+	}
+	return (len);
 }
 
 size_t	ft_strlcpy(char *dest, char *src, size_t size)
@@ -59,6 +60,8 @@ char	*ft_strdup(char *s)
 	if (!dest)
 		return (NULL);
 	ft_strlcpy(dest, s, dest_len + 1);
+	free(s);
+	s = NULL;
 	return (dest);
 }
 

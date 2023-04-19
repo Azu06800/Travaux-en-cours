@@ -6,14 +6,14 @@
 /*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 11:07:05 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/04/15 15:32:26 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/04/19 19:08:07 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 10000000
 # endif
 
 # include <stdlib.h>
