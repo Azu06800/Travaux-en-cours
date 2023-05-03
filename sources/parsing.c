@@ -6,7 +6,7 @@
 /*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 16:12:16 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/04/28 19:35:58 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/05/03 19:45:02 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,35 @@ char **extract_to_tab(int argc, char **argv)
 	free(tmp);
 	return(tab);
 }
-int check_doubles(int argc, char **argv)
+t_list	*tab_to_list(t_list *stack, char **tab)
+{
+	int 	j;
+	long	num;
+	//t_list 	*tmp;
+
+	j = 0;
+	if (!tab)
+		return(stack);
+
+	while(tab[j])
+	{
+		num = ft_atoi(tab[j]);
+		//tmp = ft_lstnew(&num);
+		ft_lstadd_back(&stack, ft_lstnew(&num));
+		 free(tab[j++]);
+		if (stack)
+		printf("while = %ld\n" ,*(long *)stack->content);
+	}
+	printf("size = %d\n",ft_lstsize(stack));
+
+	printf("stack-content tab to list = %ld\n",*(long *)stack->content);
+	printf("stack-content tab to list = %ld\n",*(long *)(stack->next->content));
+	printf("stack-content tab to list = %ld\n",*(long *)stack->next->next->content);
+	free(tab);
+	return (stack);
+}
+
+/*int check_doubles(int argc, char **argv)
 {
 	int i;
 	int j;
@@ -72,4 +100,4 @@ int check_doubles(int argc, char **argv)
 		j++;
 	}
 
-}
+}*/
