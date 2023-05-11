@@ -8,7 +8,8 @@ LIBFT			:=	./libft
 
 SRCS 			:=	push_swap.c \
 					parsing.c \
-					ps_utils1.c
+					ps_utils1.c \
+					commands.c
 
 OBJS			:=	$(addprefix ${OBJECTS}/, $(SRCS:.c=.o))
 
