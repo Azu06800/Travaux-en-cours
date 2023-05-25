@@ -6,7 +6,7 @@
 /*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 09:48:32 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/05/18 17:45:40 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:35:54 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include "../libft/ft_printf/ft_printf.h"
 
 typedef struct s_list
 {
