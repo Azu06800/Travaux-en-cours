@@ -6,7 +6,7 @@
 /*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:16:07 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/05/19 17:21:41 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/05/25 18:53:53 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@
 # include "../libft/libft.h"
 # include <sys/types.h>
 # include <unistd.h>
+# include <signal.h>
 
 #endif
