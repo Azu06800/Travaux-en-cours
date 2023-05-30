@@ -1,47 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 16:14:39 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/05/30 19:19:34 by nihamdan         ###   ########.fr       */
+/*   Created: 2023/05/30 17:13:10 by nihamdan          #+#    #+#             */
+/*   Updated: 2023/05/30 17:40:07 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minitalk.h"
 
-void send_string(pid_t pid, char *string)
+int	test_pid(pid_t pid)
 {
-	int len;
-	int byte;
-	int i;
-	
-	len = ft_strlen(string) + 1;
-	i = -1;
-	while(++i < len)
+	if (kill(pid, 0) == 0)
+		return 1;
+	else
 	{
-		byte = 8;
-		while(--byte)
-		{
-			if(string[i] >> byte & 1)
-				kill(pid, SIGUSR1);
-			else
-				kill(pid, SIGUSR2);
-			usleep(50);
-		}
+		ft_printf("PID is invalid\n");
+		return 0;
 	}
-	return ;
 }
 
-int main(int argc, char **argv)
+int	check_error(int argc, char **argv)
 {
-	pid_t pid;
-	
-	if(!check_error(argc,argv))
-		return 0;
-	pid = ft_atoi(argv[1]);
-	send_string(pid, argv[2]);
-	return 0;
+	int	i;
+
+	i = 0;
+	if (argc != 3)
+	{
+		ft_printf("Client usage = [PID][String to send]\n");
+		return (0);
+	}
+	while(argv[1][i])
+	{
+		if (!ft_isdigit(argv[1][i++]))
+		{
+			ft_printf("PID must be digit numbers\n");
+			return (0);
+		}
+	}
+	if (!test_pid(ft_atoi(argv[1])))
+		return (0);
+	return (1);
 }

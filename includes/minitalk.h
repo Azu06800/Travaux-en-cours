@@ -6,7 +6,7 @@
 /*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:16:07 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/05/25 18:53:53 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:41:05 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,7 @@
 # include <sys/types.h>
 # include <unistd.h>
 # include <signal.h>
+
+int	check_error(int argc, char **argv);
 
 #endif

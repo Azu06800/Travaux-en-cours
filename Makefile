@@ -6,7 +6,6 @@ CLIENT_BONUS = client_bonus
 SOURCES			:=	./sources
 INCLUDES		:=	./includes
 OBJECTS			:=	./bin
-LIBS	 		= -L./libft -lft
 LIBFT			:=	./libft
 
 OBJS			:=	$(addprefix ${OBJECTS}/, $(SRCS:.c=.o))
@@ -31,12 +30,13 @@ ${OBJECTS}/%.o: ${SOURCES}/%.c
 
 all: ${SERVER} ${CLIENT}
 
-$(SERVER) : ${OBJECTS}/server.o ${INCLUDES}/minitalk.h
-	@$(CC) ${OBJECTS}/server.o $(LIBS) -o $@
+$(SERVER) : ${OBJECTS}/server.o ${OBJECTS}/error.o ${INCLUDES}/minitalk.h
+	@make -C ${LIBFT} --no-print-directory
+	@$(CC) ${OBJECTS}/server.o ${OBJECTS}/error.o ${CDEPENDENCIES} -o $@
 	@printf "\e[38;5;226m./$@ successfully build\e[0m\n"
 
-$(CLIENT) : ${OBJECTS}/client.o ${INCLUDES}/minitalk.h
-	@$(CC) ${OBJECTS}/client.o $(LIBS) -o $@
+$(CLIENT) : ${OBJECTS}/client.o ${OBJECTS}/error.o ${INCLUDES}/minitalk.h
+	@$(CC) ${OBJECTS}/client.o ${OBJECTS}/error.o ${CDEPENDENCIES} -o $@
 	@printf "\e[38;5;46m./$@ successfully build\e[0m\n"
 
 clean:
