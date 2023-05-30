@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:14:39 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/05/25 18:54:27 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/05/27 10:03:10 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 
 int	test_pid(pid_t pid)
 {
-	if (kill(0, pid) == 0)
+	printf("pid = %d\n",pid);
+	if (kill(pid, 0) == 0)
 		return 1;
-	else 
+	else
 		return 0;
 }
+
 
 int main(int argc, char **argv)
 {
@@ -27,7 +29,7 @@ int main(int argc, char **argv)
 		;
 	if(test_pid(ft_atoi(argv[1])))
 		printf("pid est valide\n");
-	else 
+	else
 		printf("pid est incorrect\n");
 	return 0;
 }
