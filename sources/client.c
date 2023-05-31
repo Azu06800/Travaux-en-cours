@@ -6,7 +6,7 @@
 /*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:14:39 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/05/30 19:19:34 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/05/31 18:54:33 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void send_string(pid_t pid, char *string)
 	i = -1;
 	while(++i < len)
 	{
-		byte = 8;
-		while(--byte)
+		byte = 0;
+		while(byte < 8)
 		{
-			if(string[i] >> byte & 1)
+			if(string[i] >> byte++ & 1)
 				kill(pid, SIGUSR1);
 			else
 				kill(pid, SIGUSR2);
-			usleep(50);
+			usleep(1000);
 		}
 	}
 	return ;

@@ -6,7 +6,7 @@
 /*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 09:48:32 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/05/30 17:20:59 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/05/31 20:38:21 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_lstdelone(t_list *lst, void (*del)(int));
 void	ft_lstclear(t_list **lst, void (*del)(int));
 void	ft_lstiter(t_list *lst, void (*f)(int));
 size_t	ft_strlen(const char *s);
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+size_t	ft_strlcpy(char **dst, char **src, size_t dstsize);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 t_list	*ft_lstnew(long content);
 t_list	*ft_lstlast(t_list	*lst);
