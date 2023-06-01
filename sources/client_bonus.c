@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 16:14:39 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/06/01 17:39:22 by nihamdan         ###   ########.fr       */
+/*   Created: 2023/06/01 17:20:27 by nihamdan          #+#    #+#             */
+/*   Updated: 2023/06/01 17:37:25 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minitalk.h"
+#include "../includes/minitalk_bonus.h"
 
 static void	ft_read_signal(int sig_id)
 {
 	(void) sig_id;
+	ft_printf("Signal Recu\n");
 }
 
 void	send_string(pid_t pid, char *string)

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 16:14:44 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/06/01 17:14:59 by nihamdan         ###   ########.fr       */
+/*   Created: 2023/06/01 17:21:00 by nihamdan          #+#    #+#             */
+/*   Updated: 2023/06/01 17:37:58 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minitalk.h"
+#include "../includes/minitalk_bonus.h"
 
 char	*ft_realloc(char *string, char c)
 {

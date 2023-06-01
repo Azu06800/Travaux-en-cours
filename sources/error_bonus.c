@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   error_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/30 17:13:10 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/06/01 17:15:26 by nihamdan         ###   ########.fr       */
+/*   Created: 2023/06/01 17:22:54 by nihamdan          #+#    #+#             */
+/*   Updated: 2023/06/01 17:23:09 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minitalk.h"
+#include "../includes/minitalk_bonus.h"
 
 int	test_pid(pid_t pid)
 {

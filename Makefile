@@ -29,6 +29,7 @@ ${OBJECTS}/%.o: ${SOURCES}/%.c
 	@${CC} ${CFLAGS} -o $@ -c $< ${CINCLUDES}
 
 all: ${SERVER} ${CLIENT}
+bonus : $(SERVER_BONUS) $(CLIENT_BONUS)
 
 $(SERVER) : ${OBJECTS}/server.o ${OBJECTS}/error.o ${INCLUDES}/minitalk.h
 	@make -C ${LIBFT} --no-print-directory
@@ -39,6 +40,15 @@ $(CLIENT) : ${OBJECTS}/client.o ${OBJECTS}/error.o ${INCLUDES}/minitalk.h
 	@$(CC) ${OBJECTS}/client.o ${OBJECTS}/error.o ${CDEPENDENCIES} -o $@
 	@printf "\e[38;5;46m./$@ successfully build\e[0m\n"
 
+$(SERVER_BONUS) : ${OBJECTS}/server_bonus.o ${OBJECTS}/error_bonus.o ${INCLUDES}/minitalk_bonus.h
+	@make -C ${LIBFT} --no-print-directory
+	@$(CC) ${OBJECTS}/server_bonus.o ${OBJECTS}/error_bonus.o ${CDEPENDENCIES} -o server
+	@printf "\e[38;5;226m./$@ successfully build\e[0m\n"
+
+$(CLIENT_BONUS) : ${OBJECTS}/client_bonus.o ${OBJECTS}/error_bonus.o ${INCLUDES}/minitalk_bonus.h
+	@$(CC) ${OBJECTS}/client_bonus.o ${OBJECTS}/error_bonus.o ${CDEPENDENCIES} -o client
+	@printf "\e[38;5;46m./$@ successfully build\e[0m\n"
+
 clean:
 	@echo ${GREEN}"● Supression des fichiers binaires (.o)..."$(EOC)
 	@make -C ${LIBFT} clean --no-print-directory
@@ -47,7 +57,7 @@ clean:
 fclean: clean
 	@echo ${GREEN}"● Supression des executables et librairies..."$(EOC)
 	@make -C ${LIBFT} fclean --no-print-directory
-	@rm -f ${SERVER} ${CLIENT}
+	@rm -f ${SERVER} ${CLIENT} $(SERVER_BONUS) $(CLIENT_BONUS)
 
 re: fclean all
 
