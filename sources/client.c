@@ -6,7 +6,7 @@
 /*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:14:39 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/05/31 18:54:33 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/06/01 14:00:17 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void send_string(pid_t pid, char *string)
 				kill(pid, SIGUSR1);
 			else
 				kill(pid, SIGUSR2);
-			usleep(1000);
+			usleep(100);
 		}
 	}
 	return ;

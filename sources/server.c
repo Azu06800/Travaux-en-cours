@@ -6,54 +6,53 @@
 /*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:14:44 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/05/31 20:50:35 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:56:14 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minitalk.h"
-#include <stdio.h>
 
-
-void* ft_realloc(void* ptr, size_t size)
+char	*ft_realloc(char *string, char c)
 {
-	void* new_ptr;
-	
-    if (ptr == NULL) 
-        return (malloc(size));
-	else 
+	char	*tmp;
+	int		len;
+	int		i;
+
+	i = -1;
+	len = ft_strlen(string);
+	tmp = malloc(sizeof(char) * (len + 2));
+	while (++i < len)
+		tmp[i] = string[i];
+	tmp[i++] = c;
+	tmp[i] = '\0';
+	if (string)
 	{
-    	new_ptr = malloc(size);
-        if (new_ptr == NULL) 
-            return ptr;
-        ft_memcpy(new_ptr, ptr, size);
-        free(ptr);
-        return (new_ptr);
-    }
+		free(string);
+		string = NULL;
+	}
+	return (tmp);
 }
 
 void	receive_string(int signum)
 {
-	static char		*string;
 	static char		c;
 	static int		byte;
+	static char		*string;
 	static int		i;
 	
 	if(signum == SIGUSR1)
 		c |= 1 << byte;
-	if (byte++ == 7 && c != '\0')
+	if (byte++ == 7)
 	{
-		string = ft_realloc(string, ft_strlen(string + 2));
-		string[i++] = c;
+		string = ft_realloc(string, c);
+		if (c == '\0')
+		{
+			ft_printf("%s",string);
+			free(string);
+			string = NULL;
+			i = 0;
+		}
 		c = 0;
-		byte = 0;
-	}
-	else if (c == '\0')
-	{
-		string[i] = '\0';
-		printf("%s",string);
-		free(string);
-		string = NULL;
-		i = 0;
 		byte = 0;
 	}
 	return ;
