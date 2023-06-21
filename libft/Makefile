@@ -7,7 +7,8 @@ SRCS =	ft_atoi.c ft_itoa.c \
 		ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c ft_substr.c \
 		ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c \
 		ft_printf/ft_printf.c ft_printf/ft_putchar.c ft_printf/ft_putnbr_base.c ft_printf/ft_putptr.c \
-		ft_printf/ft_putstr.c ft_printf/ft_unsigned_putnbr_base.c
+		ft_printf/ft_putstr.c ft_printf/ft_unsigned_putnbr_base.c \
+		get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 
 
 OBJS  = $(SRCS:.c=.o)

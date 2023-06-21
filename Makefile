@@ -1,17 +1,21 @@
-SERVER   = server
-CLIENT   = client
-SERVER_BONUS = server_bonus
-CLIENT_BONUS = client_bonus
+NAME   = so_long
 
 SOURCES			:=	./sources
 INCLUDES		:=	./includes
 OBJECTS			:=	./bin
 LIBFT			:=	./libft
 
+SRCS 			:=	so_long.c \
+					so_long_utils.c \
+					so_long_utils2.c \
+					so_long_utils3.c \
+					parsing.c \
+					free_all.c 
+
 OBJS			:=	$(addprefix ${OBJECTS}/, $(SRCS:.c=.o))
 
 CC				:=	gcc
-CFLAGS			:=	-Wall -Wextra -Werror
+CFLAGS			:=	-Wall -Wextra -Werror 
 CINCLUDES		:=	-I ${INCLUDES}
 CDEPENDENCIES	:=	-L${LIBFT} -lft
 
@@ -28,26 +32,12 @@ ${OBJECTS}/%.o: ${SOURCES}/%.c
 	@echo "● Compilation de "$(BLUE)"${notdir $<}"$(EOC)"."
 	@${CC} ${CFLAGS} -o $@ -c $< ${CINCLUDES}
 
-all: ${SERVER} ${CLIENT}
-bonus : $(SERVER_BONUS) $(CLIENT_BONUS)
+all: ${NAME}
 
-$(SERVER) : ${OBJECTS}/server.o ${OBJECTS}/error.o ${INCLUDES}/minitalk.h
+${NAME} : ${OBJS}
 	@make -C ${LIBFT} --no-print-directory
-	@$(CC) ${OBJECTS}/server.o ${OBJECTS}/error.o ${CDEPENDENCIES} -o $@
+	@${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${CDEPENDENCIES}
 	@printf "\e[38;5;226m./$@ successfully build\e[0m\n"
-
-$(CLIENT) : ${OBJECTS}/client.o ${OBJECTS}/error.o ${INCLUDES}/minitalk.h
-	@$(CC) ${OBJECTS}/client.o ${OBJECTS}/error.o ${CDEPENDENCIES} -o $@
-	@printf "\e[38;5;46m./$@ successfully build\e[0m\n"
-
-$(SERVER_BONUS) : ${OBJECTS}/server_bonus.o ${OBJECTS}/error_bonus.o ${INCLUDES}/minitalk_bonus.h
-	@make -C ${LIBFT} --no-print-directory
-	@$(CC) ${OBJECTS}/server_bonus.o ${OBJECTS}/error_bonus.o ${CDEPENDENCIES} -o server
-	@printf "\e[38;5;226m./$@ successfully build\e[0m\n"
-
-$(CLIENT_BONUS) : ${OBJECTS}/client_bonus.o ${OBJECTS}/error_bonus.o ${INCLUDES}/minitalk_bonus.h
-	@$(CC) ${OBJECTS}/client_bonus.o ${OBJECTS}/error_bonus.o ${CDEPENDENCIES} -o client
-	@printf "\e[38;5;46m./$@ successfully build\e[0m\n"
 
 clean:
 	@echo ${GREEN}"● Supression des fichiers binaires (.o)..."$(EOC)
@@ -57,7 +47,7 @@ clean:
 fclean: clean
 	@echo ${GREEN}"● Supression des executables et librairies..."$(EOC)
 	@make -C ${LIBFT} fclean --no-print-directory
-	@rm -f ${SERVER} ${CLIENT} $(SERVER_BONUS) $(CLIENT_BONUS)
+	@rm -f ${NAME}
 
 re: fclean all
 

@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk_bonus.h                                   :+:      :+:    :+:   */
+/*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/01 17:21:38 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/06/01 17:22:02 by nihamdan         ###   ########.fr       */
+/*   Created: 2023/06/08 17:17:46 by nihamdan          #+#    #+#             */
+/*   Updated: 2023/06/21 15:10:18 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_BONUS_H
-# define MINITALK_BONUS_H
+#include "../includes/so_long.h"
 
-# include "../libft/libft.h"
-# include <sys/types.h>
-# include <unistd.h>
-# include <signal.h>
-
-int	check_error(int argc, char **argv);
-
-#endif
+int	main(int argc, char **argv)
+{
+	t_all	so_long;
+	
+	if (check_arg(argc, argv))
+		return (EXIT_FAILURE);
+	init_so_long(&so_long, argv[1]);
+	if (check_map(&so_long))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
