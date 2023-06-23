@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_utils3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:17:18 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/06/21 14:38:12 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/06/23 19:35:11 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void map_fill(t_all *so_long, int j, int i , int *exit)
+void map_fill(t_all *so_long, int j, int i, int *exit)
 {
 	if(so_long->cpy_map[j][i] == 'P' || so_long->cpy_map[j][i] == 'V')
 	{
 		if(so_long->cpy_map[j][i] == 'P')
-			so_long->cpy_map[j][i] = 'V'; 
+			so_long->cpy_map[j][i] = 'V';
 		if (so_long->cpy_map[j][i + 1] != '1')
 			map_fill2(so_long, j, i + 1, exit);
 		if (so_long->cpy_map[j][i - 1] != '1')
@@ -31,6 +31,8 @@ void map_fill(t_all *so_long, int j, int i , int *exit)
 }
 void map_fill2(t_all *so_long, int j, int i , int *exit)
 {
+	if (so_long->cpy_map[j][i] == 'V')
+		return ;
 	if (so_long->cpy_map[j][i] == 'C')
 		so_long->collectibles--;
 	if (so_long->cpy_map[j][i] == 'E')

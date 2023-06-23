@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 20:34:20 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/06/21 15:41:11 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/06/23 20:01:22 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	is_rectangle(t_all *so_long)
 	{
 		if (ft_strlen_modif(so_long->map[i++]) != size)
 		{
-			ft_printf("Map is not rectangular !\n"); // voir free map
+			ft_printf("Map is not rectangular !\n");
 			return (EXIT_FAILURE);
 		}
 	}
@@ -35,13 +35,13 @@ int	is_closed(t_all *so_long)
 	int	i;
 	int	j;
 	int size;
-	
+
 	i = -1;
 	j = -1;
 	size = ft_strlen_modif(so_long->map[0]);
 	while (++i < size)
 	{
-		if ((so_long->map[0][i] != '1') && (so_long->map[so_long->map_size][i] != '1'))
+		if (so_long->map[0][i] != '1' || so_long->map[so_long->map_size - 1][i] != '1')
 		{
 			ft_printf("Map is not closed !\n");
 			return (EXIT_FAILURE);
@@ -49,7 +49,7 @@ int	is_closed(t_all *so_long)
 	}
 	while (so_long->map[++j])
 	{
-		if (so_long->map[j][0] != '1' && so_long->map[j][size - 1] != '1')
+		if (so_long->map[j][0] != '1' || so_long->map[j][size - 1] != '1')
 		{
 			ft_printf("Map is not closed !\n");
 			return (EXIT_FAILURE);
@@ -62,23 +62,23 @@ int	check_map_specials(t_all *so_long)
 {
 	int	i;
 	int	j;
-	
-	i = -1;
+
 	j = -1;
 	so_long->exit_count = 0;
 	so_long->position_count = 0;
 	so_long->collectible_count = 0;
-	while(so_long->cpy_map[++j])
+	while(so_long->map[++j])
 	{
-		while(so_long->cpy_map[j][++i])
-			{
-				if (so_long->cpy_map[j][i] == 'P')
-					so_long->position_count++;
-				if (so_long->cpy_map[j][i] == 'E')
-					so_long->exit_count++;
-				if (so_long->cpy_map[j][i] == 'C')
-					so_long->collectible_count++;
-			}
+		i = -1;
+		while(so_long->map[j][++i])
+		{
+			if (so_long->map[j][i] == 'P')
+				so_long->position_count++;
+			if (so_long->map[j][i] == 'E')
+				so_long->exit_count++;
+			if (so_long->map[j][i] == 'C')
+				so_long->collectible_count++;
+		}
 	}
 	if (so_long->exit_count == 1 && so_long->position_count== 1
 		&& so_long->collectible_count > 0)
@@ -91,24 +91,23 @@ int	check_path(t_all *so_long)
 {
 	int	i;
 	int	j;
-	int *exit;
+	int exit;
 
-	exit = NULL;
 	so_long->collectibles = count_collectibles(so_long);
 	so_long->flag_map = 0;
-	*exit = 0;
+	exit = 0;
 	while(!so_long->flag_map)
 	{
 		so_long->flag_map = 1;
 		j = -1;
-		i = -1;
 		while(so_long->cpy_map[++j])
 		{
+			i = -1;
 			while(so_long->cpy_map[j][++i])
-				map_fill(so_long, j, i, exit);
+				map_fill(so_long, j, i, &exit);
 		}
 	}
-	if (*exit == 1 && so_long->collectibles == 0)
+	if (exit == 1 && so_long->collectibles == 0)
 		return (EXIT_SUCCESS);
 	else
 		return (EXIT_FAILURE);

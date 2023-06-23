@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 09:54:37 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/06/21 15:41:00 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/06/23 19:14:36 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ void	init_map(t_all *so_long, char *argv)
 	char	*line;
 	int		fd;
 	int		i;
-	
+
 	i = 0;
 	map_size(so_long, argv);
-	so_long->map = malloc(sizeof(char *) * so_long->map_size + 1);
+	so_long->map = malloc((so_long->map_size + 1) * sizeof(char *));
 	fd = open(argv, O_RDONLY);
 	line = get_next_line(fd);
 	while (i != so_long->map_size)
@@ -61,10 +61,10 @@ void	cpy_map(t_all *so_long, char *argv)
 	char	*line;
 	int		fd;
 	int		i;
-	
+
 	i = 0;
 	map_size(so_long, argv);
-	so_long->cpy_map = malloc(sizeof(char *) * so_long->map_size + 1);
+	so_long->cpy_map = malloc((so_long->map_size + 1) * sizeof(char *));
 	fd = open(argv, O_RDONLY);
 	line = get_next_line(fd);
 	while (line != NULL)
@@ -83,11 +83,11 @@ int count_collectibles(t_all *so_long)
 	int j;
 	int c;
 
-	i = -1;
 	j = -1;
 	c = 0;
 	while (so_long->map[++j])
 	{
+		i = -1;
 		while (so_long->map[j][++i])
 		{
 			if (so_long->map[j][i] == 'C')

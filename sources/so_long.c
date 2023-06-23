@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:17:46 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/06/21 15:10:18 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/06/23 19:46:19 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(int argc, char **argv)
 {
 	t_all	so_long;
-	
+
 	if (check_arg(argc, argv))
 		return (EXIT_FAILURE);
 	init_so_long(&so_long, argv[1]);

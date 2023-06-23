@@ -10,12 +10,12 @@ SRCS 			:=	so_long.c \
 					so_long_utils2.c \
 					so_long_utils3.c \
 					parsing.c \
-					free_all.c 
+					free_all.c
 
 OBJS			:=	$(addprefix ${OBJECTS}/, $(SRCS:.c=.o))
 
 CC				:=	gcc
-CFLAGS			:=	-Wall -Wextra -Werror 
+CFLAGS			:=	-Wall -Wextra -Werror
 CINCLUDES		:=	-I ${INCLUDES}
 CDEPENDENCIES	:=	-L${LIBFT} -lft
 
