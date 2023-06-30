@@ -6,7 +6,7 @@
 /*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 20:34:20 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/06/23 20:01:22 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/06/30 03:43:12 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,4 +111,24 @@ int	check_path(t_all *so_long)
 		return (EXIT_SUCCESS);
 	else
 		return (EXIT_FAILURE);
+}
+
+int	map_format(t_all *so_long)
+{
+	int	i;
+	int	j;
+
+	j = -1;
+	while (so_long->map[++j])
+	{
+		i = -1;
+		while (so_long->map[j][++i])
+		{
+			if (so_long->map[j][i] != '1' && so_long->map[j][i] != '0'
+				&& so_long->map[j][i] != 'E' && so_long->map[j][i] != 'P'
+					&& so_long->map[j][i] != 'C' && so_long->map[j][i] != '\n')
+			return (EXIT_FAILURE);
+		}
+	}
+	return (EXIT_SUCCESS);
 }

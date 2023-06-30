@@ -6,7 +6,7 @@
 /*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:21:49 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/06/23 20:00:47 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/06/30 03:52:22 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int check_map(t_all *so_long)
 		free_all(so_long);
 		return (EXIT_FAILURE);
 	}
-	if (check_map_specials(so_long))
+	if (check_map_specials(so_long) || map_format(so_long))
 	{
 		free_all(so_long);
 		ft_printf("Map doesn't have full requirements !\n");
