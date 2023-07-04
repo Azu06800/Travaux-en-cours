@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:17:46 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/06/23 19:46:19 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/07/04 19:10:58 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,10 @@ int	main(int argc, char **argv)
 	init_so_long(&so_long, argv[1]);
 	if (check_map(&so_long))
 		return (EXIT_FAILURE);
+	init_mlx(&so_long);
+	mlx_loop_hook(so_long.mlx_ptr, &game_loop, &so_long);
+	//mlx_hook(so_long.mlx_ptr, 2, 0, &key_press, struct);
+	//mlx_hook(so_long.mlx_ptr, 17, 0, &ft_exit, &so_long); // probleme a gerer
+	mlx_loop(so_long.mlx_ptr);
 	return (EXIT_SUCCESS);
 }

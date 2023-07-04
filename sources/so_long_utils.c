@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 20:34:20 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/06/30 03:43:12 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/07/04 16:18:01 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	is_rectangle(t_all *so_long)
 
 	i = 0;
 	size = ft_strlen_modif(so_long->map[i++]);
+	so_long->map_length = size;
 	while(so_long->map[i])
 	{
 		if (ft_strlen_modif(so_long->map[i++]) != size)

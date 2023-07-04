@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_utils3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:17:18 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/06/23 19:35:11 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:48:19 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,14 @@ void	init_so_long(t_all *so_long, char *argv)
 	so_long->position_count = 0;
 	so_long->collectible_count = 0;
 	so_long->flag_map = 0;
+	so_long->exitoffpath = "./xpm/exitoff.xpm";
+	so_long->exitonpath = "./xpm/exiton.xpm";
+	so_long->groundpath = "./xpm/ground.xpm";
+	so_long->charpath = "./xpm/char.xpm";
+	so_long->collectpath = "./xpm/collect.xpm";
+	so_long->wallpath = "./xpm/wall.xpm";
+	so_long->mlx_ptr = NULL;
+	so_long->wdw_ptr = NULL;
 	init_map(so_long, argv);
 	cpy_map(so_long, argv);
 	return ;

@@ -10,12 +10,14 @@ SRCS 			:=	so_long.c \
 					so_long_utils2.c \
 					so_long_utils3.c \
 					parsing.c \
-					free_all.c
+					free_all.c \
+					mlx_utils.c
 
 OBJS			:=	$(addprefix ${OBJECTS}/, $(SRCS:.c=.o))
 
 CC				:=	gcc
 CFLAGS			:=	-Wall -Wextra -Werror
+MLX				:=	-lmlx -framework OpenGL -framework AppKit
 CINCLUDES		:=	-I ${INCLUDES}
 CDEPENDENCIES	:=	-L${LIBFT} -lft
 
@@ -36,7 +38,7 @@ all: ${NAME}
 
 ${NAME} : ${OBJS}
 	@make -C ${LIBFT} --no-print-directory
-	@${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${CDEPENDENCIES}
+	@${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${CDEPENDENCIES} ${MLX}
 	@printf "\e[38;5;226m./$@ successfully build\e[0m\n"
 
 clean:
