@@ -11,7 +11,8 @@ SRCS 			:=	so_long.c \
 					so_long_utils3.c \
 					parsing.c \
 					free_all.c \
-					mlx_utils.c
+					mlx_utils.c \
+					mlx_utils2.c
 
 OBJS			:=	$(addprefix ${OBJECTS}/, $(SRCS:.c=.o))
 

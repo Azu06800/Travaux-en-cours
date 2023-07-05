@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 09:54:37 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/06/23 19:14:36 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/07/05 19:51:51 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ size_t	ft_strlen_modif(char *s)
 
 void	map_size(t_all *so_long, char *argv)
 {
-	int fd;
+	int	fd;
+
 	so_long->map_size = 0;
 	fd = open(argv, O_RDONLY);
-	while(get_next_line(fd) != NULL)
+	while (get_next_line(fd) != NULL)
 		so_long->map_size++;
 	close(fd);
 	return ;
@@ -77,11 +78,11 @@ void	cpy_map(t_all *so_long, char *argv)
 	return ;
 }
 
-int count_collectibles(t_all *so_long)
+int	count_collectibles(t_all *so_long)
 {
-	int i;
-	int j;
-	int c;
+	int	i;
+	int	j;
+	int	c;
 
 	j = -1;
 	c = 0;

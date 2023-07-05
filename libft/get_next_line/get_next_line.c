@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 11:07:19 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/06/23 18:50:01 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/07/05 19:21:17 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	read_and_stash(int fd, char **stash)
 		return (read_size);
 	}
 	tmp = ft_strdup_gnl(*stash);
-	*stash = ft_calloc_gnl(ft_strlen_gnl(tmp) + ft_strlen_gnl(buf) + 1, sizeof(char));
+	*stash = ft_calloc_gnl(ft_strlen_gnl(tmp) 
+			+ ft_strlen_gnl(buf) + 1, sizeof(char));
 	*stash = ft_strcat_gnl(*stash, tmp);
 	*stash = ft_strcat_gnl(*stash, buf);
 	free(tmp);
@@ -122,8 +123,10 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, line, 0) < 0)
 	{
 		if (stash[fd])
+		{
 			free(stash[fd]);
 			stash[fd] = NULL;
+		}
 		return (NULL);
 	}
 	if (!stash[fd])
