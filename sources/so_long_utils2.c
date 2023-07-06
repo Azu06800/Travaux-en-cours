@@ -6,7 +6,7 @@
 /*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 09:54:37 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/07/05 19:51:51 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/07/06 17:42:35 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,19 @@ size_t	ft_strlen_modif(char *s)
 
 void	map_size(t_all *so_long, char *argv)
 {
-	int	fd;
+	int		fd;
+	char	*line;
 
 	so_long->map_size = 0;
 	fd = open(argv, O_RDONLY);
-	while (get_next_line(fd) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
+	{
 		so_long->map_size++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	free(line);
 	close(fd);
 	return ;
 }

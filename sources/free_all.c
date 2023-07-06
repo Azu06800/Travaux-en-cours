@@ -6,7 +6,7 @@
 /*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:34:32 by nihamdan          #+#    #+#             */
-/*   Updated: 2023/07/05 20:22:24 by nihamdan         ###   ########.fr       */
+/*   Updated: 2023/07/06 18:00:41 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	ft_error(char *error, t_all *so_long)
 		mlx_destroy_image(so_long->mlx_ptr, so_long->collectptr);
 	mlx_destroy_window(so_long->mlx_ptr, so_long->wdw_ptr);
 	free_all(so_long);
+	//system ("leaks so_long");
 	exit(EXIT_FAILURE);
 }
 
@@ -73,7 +74,6 @@ int	ft_exit(t_all *so_long)
 	mlx_destroy_image(so_long->mlx_ptr, so_long->collectptr);
 	mlx_destroy_window(so_long->mlx_ptr, so_long->wdw_ptr);
 	free_all(so_long);
-	//system ("leaks so_long");
 	exit(EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
 }
