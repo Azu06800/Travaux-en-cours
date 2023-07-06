@@ -56,7 +56,7 @@ void	init_map(t_all *so_long, char *argv)
 	line = get_next_line(fd);
 	while (i != so_long->map_size)
 	{
-		so_long->map[i++] = line;
+		so_long->map[i++] = line;//free line or strdup?
 		line = get_next_line(fd);
 	}
 	so_long->map[i] = NULL;
