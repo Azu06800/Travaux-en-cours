@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: biaroun <biaroun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nihamdan <nihamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:41:09 by biaroun           #+#    #+#             */
-/*   Updated: 2023/09/29 04:55:34 by biaroun          ###   ########.fr       */
+/*   Updated: 2023/11/11 19:24:25 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,10 @@ typedef struct s_minishell
 	t_tokens	*tokens;
 	char		**builtins;
 	char		**PATH;
+	int			pipe_ct;
+	int			pipefd[2];
+	int			stdin;
+	int			stdout;
 
 	int			re;
 }				t_minishell;
@@ -112,16 +116,17 @@ char			**tokentostr(t_tokens *token);
 void			init_minishell(t_minishell *g_minishell, t_env *envlst);
 void			parse_tokens(t_tokens *tokens, t_minishell *mini);
 void			get_envlst(char **envp, t_env *envlst);
+int				cmd_abs_exists(t_tokens *token);
 void    		parse_redir_token(t_tokens *tokens, int i);
 int				find_cmd(t_minishell *g_minishell, int cmd);
 char			*get_value(char	*envp);
 char			*get_name(char	*envp);
 
-char   			*no_expand(char *str);
-void    		ft_expander(t_tokens *tokens, t_env *env);
-
 //--------------------TOOLS--------------------//
-int				ft_executor(t_minishell *g_minishell,t_tokens *tokens);
+char			*expander(t_tokens tokens, t_env *env, t_minishell *mini);
+char   			*no_expand(char *str);
+void    		ft_expander(t_tokens *tokens, t_env *env, t_minishell *mini);
+char			*ft_heredoc(t_minishell *mini, t_tokens *tokens);
 
 //--------------------CMD--------------------//
 void			ft_cd(t_minishell *minishell, t_tokens *tokens);
@@ -136,7 +141,26 @@ int				is_identifier(char *str);
 void			ft_unset(t_minishell *minishell, t_tokens *tokens);
 int				ft_validator(t_tokens *tokens);
 
+//-------------------EXEC-------------------//
+void			exec_heredoc(t_minishell *g_minishell, t_tokens *tokens);
+int				ft_executor(t_minishell *g_minishell,t_tokens *tokens);
+void			executor_2(t_minishell *g_minishell, t_tokens *tokens, int *i, int *j);
+char			*ft_redirect(t_minishell *g_minishell,t_tokens *tokens, int *j);
+void			redirect_1(t_tokens *tokens, int *j, int *fd);
+char 			*redirect_2(t_minishell *g_minishell, t_tokens *tokens, int *j, int *fd);
+void			redirect_3(t_tokens *tokens, int *j, int *fd);
+void			redirect_4(t_tokens *tokens, int *j, int *fd);
+//void			redirect_5(t_tokens *tokens, int *j, int *fd);
+int				count_pipe(t_tokens *tokens);
+int				builtin(t_minishell *g_minishell, t_tokens *tokens);
+char			**get_cmd_arg(t_tokens *tokens, int *j);
+int 			exec_cmd(char *cmd, char **arg);
+int				exec_builtin(t_minishell *g_minishell, t_tokens *tokens);
+int				check_pipe(t_tokens *tokens, int *j);
+
+
 //-------------------UTILS-------------------//
+int				ft_random(void);
 int				ft_isalpha(int c);
 int				ft_isalnum(int c);
 int				ft_onlyspace(char *str);
@@ -148,13 +172,14 @@ char			*ft_strdup(const char *s1);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 void			*ft_memcpy(void *dst, const void *src, size_t n);
 int				ft_strcmp(const char *s1, const char *s2);
-char			*ft_strchr(const char *s, int c);
+char			*ft_strchr(char *s, int c);
 char			*ft_strcpy(char *dest, const char *src);
 char			*ft_strncpy(char *dest, const char *src, size_t n);
 char 			*ft_strstr(const char *haystack, const char *needle);
 char			*get_env_value(char *name, t_env *envlst);
 int				ft_atoi(const char *str);
 char			*ft_strjoin_path(char const *s1, char const *s2);
+char			*ft_itoa(int n);
 void    		free_tab(char **tab);
 	//lst
 t_env			*ft_lstlast(t_env	*lst);

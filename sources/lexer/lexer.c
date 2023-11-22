@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: biaroun <biaroun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nizar <nizar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:44:19 by biaroun           #+#    #+#             */
-/*   Updated: 2023/09/19 03:24:13 by biaroun          ###   ########.fr       */
+/*   Updated: 2023/10/16 13:32:08 by nizar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	ft_sepcpy(char *arg, t_tokens *tokens, int *i)
 	d[1] = arg[*i + 1];
 	if (arg[*i] == arg[*i + 1])
 	{
-		printf("test1\n");
 		d[2] = '\0';
 		(*i)++;
 	}
@@ -42,8 +41,8 @@ void	ft_argcpy(char *args, int *i, t_tokens *tokens)
 
 	j = *i;
 	tokens->spcecho = 1;
-	if ( *i != 0 && ft_isspcable(args[(*i) - 1]))
-    	tokens->spcecho = 0;
+	if (*i != 0 && ft_isspcable(args[(*i) - 1]))
+		tokens->spcecho = 0;
 	while (args[j] && !ft_issep(args[j]) && !ft_isspace(args[j]))
 		j++;
 	arg = malloc(sizeof(char) * j - *i + 1);

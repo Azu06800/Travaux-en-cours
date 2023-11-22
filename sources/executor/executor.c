@@ -63,14 +63,35 @@ int exec_cmd(char *cmd, char **arg)
 	pid_t 	pid;
 	int		status;
 
+	/*printf("cmd : %s\n", cmd);
+	printf("arg 0: %s\n", arg[0]);
+	printf("arg 1: %s\n", arg[1]);
+	write(g_minishell->stdout, "---\n", 4);
+	write(g_minishell->stdout, cmd, ft_strlen(cmd));
+	write(g_minishell->stdout, "\n", 1);
+	write(g_minishell->stdout, arg, ft_strlen(arg[0]));
+	write(g_minishell->stdout, "\n", 1);*/
+	/*write(g_minishell->stdout, arg + 1, ft_strlen(arg[1]));
+	write(g_minishell->stdout, "\n", 1);
+	write(g_minishell->stdout, "---\n", 4);*/
 	pid = fork();
+	/*if (!strcmp(cmd, "wc"))
+		write(g_minishell->stdout, "la\n", 3);*/
 	if(pid == -1)
 	{
 		perror("Erreur fork ");
 		return(EXIT_FAILURE);
 	}
 	else if(pid > 0)
-		wait(&status);
+	{
+		/*dup2(g_minishell->pipefd[0], g_minishell->pipefd[0]);
+		char buf[4060];
+		read(g_minishell->pipefd[0], buf, 400);
+		write(g_minishell->stdout, &buf, ft_strlen(buf));
+		write(g_minishell->stdout, "\n", 1);*/
+		waitpid(pid, &status, 0);
+		/*write(g_minishell->stdout, "eee\n", 4);*/
+	}
 	else
 	{
 		if(execve(cmd, arg, NULL) == -1)
@@ -82,23 +103,7 @@ int exec_cmd(char *cmd, char **arg)
 
 int	exec_builtin(t_minishell *g_minishell, t_tokens *tokens)
 {
-	pid_t 	pid;
-	int		status;
-
-	pid = fork();
-	if(pid == -1)
-	{
-		perror("Erreur fork ");
-		return(EXIT_FAILURE);
-	}
-	else if(pid > 0)
-		wait(&status);
-	else
-	{
-		if(builtin(g_minishell, tokens) == 1)
-			perror("Erreur cmd ");
-		exit(EXIT_FAILURE);
-	}
+	builtin(g_minishell, tokens);
 	return (EXIT_SUCCESS);
 }
 
@@ -106,77 +111,34 @@ int	ft_executor(t_minishell *g_minishell, t_tokens *tokens)
 {
 	int		i;
 	int 	j;
-	char 	**arg;
-	int		stdin;
-	int		stdout;
-	int 	fd;
+	int		pipe_status;
 
 	g_minishell->re = 0;
 	i = 0;
-	arg = NULL;
+	pipe_status = 1;
+	g_minishell->pipe_ct = count_pipe(tokens);
+	g_minishell->stdin = dup(0);
+	g_minishell->stdout = dup(1);
+	if (g_minishell->pipe_ct > 0 && pipe_status)
+	{
+		pipe(g_minishell->pipefd);
+		pipe_status = 0;
+	}
 	while(tokens[i].str)
 	{
+		if (tokens[i].REDIR_type == 5)
+			dup2(g_minishell->pipefd[0], 0);
 		if(tokens[i].type == 2 || tokens[i].type == 3)
 		{
-			stdin = dup(0);
-			stdout = dup(1);
 			j = i;
-			arg = get_cmd_arg(tokens, &j);
-			if (tokens[j].type == 1) // a factoriser
-			{
-				if (tokens[j].REDIR_type == 1) // >>
-				{
-					fd = open(tokens[j+1].str, O_WRONLY | O_CREAT | O_APPEND, 0644);
-					if (fd == -1)
-					{
-						perror("Impossible d'ouvrir le fichier");
-        				exit(EXIT_FAILURE);
-					}
-					if (dup2(fd, 1) == -1)
-					{
-						perror("Erreur lors de la redirection");
-        				exit(EXIT_FAILURE);
-					}
-					close(fd);
-				}
-				else if (tokens[j].REDIR_type == 2) //heredoc
-				else if (tokens[j].REDIR_type == 3) // <
-				{
-					
-				}
-				else if (tokens[j].REDIR_type == 4) // >
-				{
-					fd = open(tokens[j+1].str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-					if (fd == -1)
-					{
-						perror("Impossible d'ouvrir le fichier");
-        				exit(EXIT_FAILURE);
-					}
-					if (dup2(fd, 1) == -1)
-					{
-						perror("Erreur lors de la redirection");
-        				exit(EXIT_FAILURE);
-					}
-					close(fd);
-				}
-				else if (tokens[j].REDIR_type == 5) // |
-				{
-
-				}
-			}
-			if (tokens[i].type == 3)
-				exec_cmd(tokens[i].path_cmd, arg);
-			else
-				exec_builtin(g_minishell, &tokens[i]);
-			i = j;
-			free(arg);
-			dup2(stdin, 0);
-			dup2(stdout, 1);
-			close(stdin);
-			close(stdout);
+			executor_2(g_minishell, tokens, &i, &j);
 		}
-		if (tokens[i].type == 1)//a modifier
+		else if (tokens[i].type != 2 && tokens[i].type != 3)
 			i++;
 	}
+	close(g_minishell->stdin);
+	close(g_minishell->stdout);
+	close(g_minishell->pipefd[0]);
+	close(g_minishell->pipefd[1]);
 	return(EXIT_SUCCESS);
 }
